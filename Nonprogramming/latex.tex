@@ -1,0 +1,819 @@
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex} %Imports biblatex package
+% \addbibresource{sample.bib} %Import the bibliography file
+
+\title{Spring 2025 CS4641/CS7641 Homework 1}
+\author{Dr. Mahdi Roozbahani}
+\date{Deadline: Friday, February 7th, 11:59 pm EST}
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{bbold}
+\usepackage{diagbox}
+\usepackage{multirow}
+% \documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{xcolor}
+
+
+%new
+\usepackage{listings}
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Sharelatex Example},
+    pdfpagemode=FullScreen,
+}
+
+\begin{document}
+\maketitle
+\begin{itemize}
+    \item No unapproved extension of the deadline is allowed. For late submissions, please refer to the course website.
+    \item Discussion is encouraged on Ed as part of the Q/A.      However, all assignments should be done individually.
+\item \color{red}Plagiarism is a \textbf{serious offense}. You are responsible for completing your own work. You are not allowed to copy and paste, or paraphrase, or submit materials created or published by others, as if you created the materials. All materials submitted must be your own. This also means you may not submit work created by generative models as your own.\color{black}
+    \item \color{red}All incidents of suspected dishonesty, plagiarism, or violations of the Georgia Tech Honor Code will be subject to the institute’s Academic Integrity procedures. If we observe any (even small) similarities/plagiarisms detected by Gradescope or our TAs, \textbf{WE WILL DIRECTLY REPORT ALL CASES TO OSI}, which may, unfortunately, lead to a very harsh outcome. \textbf{Consequences can be severe, e.g., academic probation or dismissal, grade penalties, a 0 grade for assignments concerned, and prohibition from withdrawing from the class}.
+\end{itemize}
+
+\section*{Instructions}
+\begin{itemize}
+    \item We will be using Gradescope for submission and grading of assignments. 
+    \item \textbf{Unless a question explicitly states that no work is required to be shown, you must provide an explanation, justification, or calculation for your answer.} Basic arithmetic can be combined (it does not need to each have its own step); your work should be at a level of detail that a TA can follow it.
+    \item Your write-up must be submitted in PDF form, you may use either Latex,  markdown, or any word processing software. \color{red}We will \textbf{NOT} accept handwritten work. \color{black}Make sure that your work is formatted correctly, for example submit $\sum_{i=0} x_i$ instead of \text{sum\_\{i=0\} x\_i}. 
+    \item \textbf{A useful video tutorial on LaTeX has been created by our TA team} and can be found \href{https://www.dropbox.com/s/wywx114wtfoweru/Latex\%20Tutorial.mp4?dl=0}{here} and an Overleaf document with the commands can be found \href{https://www.overleaf.com/read/yjxbshkffvkm}{here}.
+
+    % Possibly change
+    \item When submitting your assignment on Gradescope, \textbf{you are required to correctly map pages of your PDF to each question/ subquestion to reflect where they appear.}  Improperly mapped questions will not be graded correctly.
+    \item All assignments should be done individually, each student must write up and submit their own answers.
+    \item \color{red}\textbf{Graduate Students}\color{black}: You are required to complete any sections marked as Bonus for Undergrads
+\end{itemize}
+\newpage
+
+\section*{Point Distribution}
+\subsection*{Q1: Linear Algebra [30pts]}
+\begin{itemize}
+    \item 1.1 Determinant and Inverse of a Matrix [10pts]
+    \item 1.2 Eigenvalues and Eigenvectors [20pts]
+\end{itemize}
+
+\subsection*{Q2: Expectation, Co-variance and Statistical Independence [7pts]}
+
+\subsection*{Q3: Optimization [17pts + 3\% Bonus for All]}
+\begin{itemize}
+    \item 3.1 KKT [17pts]
+    \item 3.2 Primal and Dual Form [3\% Bonus for All]
+\end{itemize}
+
+\subsection*{Q4: Maximum Likelihood [20pts: 10pts + 10 pts Grad/6\% Bonus for Undergrads]}
+\begin{itemize}
+    \item 4.1 Discrete Example [10pts]
+    \item 4.2 Poisson Distribution [10pts Grad / 6\% Bonus for Undergrads]
+\end{itemize}
+
+\subsection*{Q5: Information Theory [31pts]}
+\begin{itemize}
+    \item 5.1 Mutual Information and Entropy [21pts]
+    \item 5.2 Entropy Proofs [10pts]
+\end{itemize}
+
+\subsection*{Q6: Ethical Implications on Decision-Making [10 pts]}
+\begin{itemize}
+    \item 6.1 Loan Eligibility [5pts]
+    \item 6.2 Voting and Probabilistic Models [5pts]
+\end{itemize}
+
+\subsection*{Q7: Programming [5pts]}
+
+\subsection*{Q8: Bonus Questions [7\% Bonus for All]}
+\begin{itemize}
+    \item 8.1 Marginal Probability Density Functions [2\% Bonus for All]
+    \item 8.2 Coin Toss Game [2\% Bonus for All]
+    \item 8.3 Dice Roll Expectation [3\% Bonus for All]
+\end{itemize}
+
+\subsection*{Points Totals:}
+\begin{itemize}
+    \item \textbf{Total Programming Points for All:} 5 pts
+    \item \textbf{Total Written Points for Grad:} 115 pts
+    \item \textbf{Total Written Points for Undergrad:} 105 pts
+\end{itemize}
+
+
+\newpage
+
+\section{Linear Algebra [30pts]}
+\subsection{Determinant and Inverse of Matrix [10pts]}
+Given a matrix $M$:
+$$M = \begin{bmatrix} 
+    3 & -2 & 4 \\ 
+    r & 1 & -1 \\
+    0 & 2 & 2
+\end{bmatrix}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Calculate the determinant of $\boldsymbol{M}$ in terms of $r$ (calculation process is required). [4pts]
+    \begin{align*}
+        |\boldsymbol{M}| &= \begin{vmatrix} 3 & -2 & 4 \\ r & 1 & -1 \\ 0 & 2 & 2 \end{vmatrix} \\
+        &= 3 \begin{vmatrix} 1 & -1 \\ 2 & 2 \end{vmatrix} - (-2) \begin{vmatrix} r & -1 \\ 0 & 2 \end{vmatrix} + 4 \begin{vmatrix} r & 1 \\ 0 & 2 \end{vmatrix} \\
+        &= 3(4) + 4r + 8r \\
+        &= 12 + 12r
+    \end{align*}
+    $$|\boldsymbol{M}| = \mathbf{12 + 12r}$$
+
+    \item For what value(s) of $r$ does $\boldsymbol{M}^{-1}$ not exist? Why doesn't $\boldsymbol{M}^{-1}$ exist in this case? What does it mean in terms of rank and singularity for these values of $r$? \textit{This question can be answered in less than 7 lines. } [3pts]
+
+    The inverse of $\boldsymbol{M}$ does not exist when $|\boldsymbol{M}| = 0$. 
+    \begin{align*}
+        12 + 12r &= 0 \\
+        r &= -1
+    \end{align*}
+    When $r = -1$, the determinant is zero, meaning $\boldsymbol{M}$ is singular and does not have full rank (rank $< 3$). Hence, it is not invertible.
+        
+    \item Find the mathematical equation that describes the relationship between the determinant of $\boldsymbol{M}$ and the determinant of $\boldsymbol{M}^{-1}$. You do \textbf{NOT} need to show any work. [3pts]
+    \par\textbf{NOTE:} It may be helpful to find the determinant of $\boldsymbol{M}$ and $\boldsymbol{M}^{-1}$ for $r = 0$.
+
+    \[ \det(\boldsymbol{M}^{-1}) = \frac{1}{\det(\boldsymbol{M})} \]
+
+\end{enumerate}
+
+\newpage
+
+
+
+\subsection{Eigenvalues and Eigenvectors [20pts]}
+\subsubsection{Eigenvalues [5pts]}
+Given the following matrix $\boldsymbol{A}$, find an expression for the eigenvalues $\lambda$ of $\textbf{\textit{A}}$ in terms of $a$, $b$, and $c$. \newline (Simplify your answer into the form $\lambda = ...$). [5pts] 
+
+$$\textbf{\textit{A}}=\begin{bmatrix}
+    a & b \\
+    b & c
+\end{bmatrix}$$
+
+The eigenvalues are found by solving the characteristic equation:
+\begin{align*}
+    \det(\boldsymbol{A} - \lambda \boldsymbol{I}) &= 0 \\
+    \begin{vmatrix} a - \lambda & b \\ b & c - \lambda \end{vmatrix} &= 0 \\
+    (a - \lambda)(c - \lambda) - b^2 &= 0 \\
+    \lambda^2 - (a+c)\lambda + (ac - b^2) &= 0
+\end{align*}
+
+Using the quadratic formula:
+\[ \lambda = \frac{(a+c) \pm \sqrt{(a+c)^2 - 4(ac - b^2)}}{2} \]
+
+\subsubsection{Eigenvectors [15pts]}
+Given a matrix $\boldsymbol{A}$:
+$$\boldsymbol{A} = \begin{bmatrix} 
+    -7 & 2  \\ 
+    6 & 4 \\
+\end{bmatrix}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Calculate the eigenvalues of $\boldsymbol{A}$. Simplify your answer into the form $\lambda = $ numbers [3pts]
+    \begin{align*}
+        \begin{vmatrix} -7 - \lambda & 2 \\ 6 & 4 - \lambda \end{vmatrix} &= 0 \\
+        (-7-\lambda)(4-\lambda) - (2)(6) &= 0 \\
+        \lambda^2 + 3\lambda - 40 &= 0 \\
+        \lambda_1 = -8 \\
+        \lambda_2 = 5
+    \end{align*}
+    \item Find the normalized eigenvectors of matrix $\boldsymbol{A}$ (calculation process required). [7pts]
+    Solving $(\boldsymbol{A} - \lambda \boldsymbol{I}) \boldsymbol{v} = 0$ for $\lambda = -8$:
+    \begin{align*}
+        \begin{bmatrix} 1 & 2 \\ 6 & 12 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} &= \begin{bmatrix} 0 \\ 0 \end{bmatrix}
+    \end{align*}
+    Solution: $\mathbf{v_1} = \frac{1}{\sqrt{5}} \begin{bmatrix} -2 \\ 1 \end{bmatrix}$.
+    
+    For $\lambda = 5$:
+    \begin{align*}
+        \begin{bmatrix} -12 & 2 \\ 6 & -1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} &= \begin{bmatrix} 0 \\ 0 \end{bmatrix}
+    \end{align*}
+    Solution: $\mathbf{v_2} = \frac{1}{\sqrt{37}} \begin{bmatrix} 1 \\ 6 \end{bmatrix}$.
+    \item When calculating the eigenvectors, were the columns of the matrix $(\boldsymbol{A} - \lambda \boldsymbol{I} )$ linearly independent or linearly dependent? \\
+
+    They are linear dependent.
+    
+    Now, consider the linearly independent matrix $$\boldsymbol{B} = \begin{bmatrix} 
+    1 & 2  \\ 
+    2 & 1 \\
+    \end{bmatrix}$$\\
+    Solve for the vector $\boldsymbol{x}$ which satisfies the equation $\boldsymbol{B} \boldsymbol{x} = 0$.\\Hint: Use row reduction on $$\begin{bmatrix} 
+        1 & 2 & | & 0\\ 
+        2 & 1 & | & 0
+    \end{bmatrix}$$\\ Afterwards, recall that matrices can be interpreted as a transformation on a vector. For example,
+    $$\text{scaling} = \begin{bmatrix} 
+    k & 0  \\ 
+    0 & k \\
+    \end{bmatrix}, \text{flip across }x_2 = \begin{bmatrix} 
+    -1 & 0  \\ 
+    0 & 1 \\
+    \end{bmatrix}$$
+    So, consider you have several vectors close to each other, and you want to apply a transformation to separate them. If you want to make sure the vectors keep their non-zero values after the transformation, what important property must the transformation matrix have [5pts]?
+
+    Given the augmented matrix:
+\[ \begin{bmatrix} 1 & 2 & | & 0 \\ 2 & 1 & | & 0 \end{bmatrix} \]
+Perform row reduction:
+
+1. Subtract 2 times the first row from the second row:
+   \[ \begin{bmatrix} 1 & 2 & | & 0 \\ 0 & -3 & | & 0 \end{bmatrix} \]
+2. Divide the second row by $-3$:
+   \[ \begin{bmatrix} 1 & 2 & | & 0 \\ 0 & 1 & | & 0 \end{bmatrix} \]
+3. Subtract 2 times the second row from the first row:
+   \[ \begin{bmatrix} 1 & 0 & | & 0 \\ 0 & 1 & | & 0 \end{bmatrix} \]
+
+Since the system reduces to the trivial solution $x_1 = 0, x_2 = 0$, the only solution is $\boldsymbol{x} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+
+Matrix $B$ must be invertible to make sure the vectors keep their non-zero values after the transformation.
+
+\end{enumerate}
+
+\newpage
+
+
+
+\section{Expectation, Co-variance, and Statistical Independence [7pts]}
+Suppose $X$, $Y$, and $Z$ are three different real-valued random variables.
+\bigbreak
+\noindent Let $X$ obey a discrete binary distribution. The probability mass function for $X$ is:
+$$p(x)=\begin{cases}
+    0.8 & x = c\\
+    0.2 & x = -c
+\end{cases}$$
+where $c$ is some nonzero constant. The distribution of $Y$ is not known, but it is provided that $Var(Y) = 0.94c^2$. Additionally, $X$ and $Y$ are statistically independent (i.e. $P(X|Y) = P(X)$). Finally, let $Z = 9X + 3Y$.
+\bigbreak
+\noindent We define a correlational measure $\gamma$:
+$$\gamma(X,Z)=\frac{Cov(X,Z)}{\sqrt{Var(X)\cdot Var(Z)}} + Var(X+Z)$$
+Evaluate $\gamma(X,Z)$ in terms of $c$. Remember to show your work to receive credit. Round the values in your final answer to 3 decimal places, but do not round in intermediate steps. 
+\bigbreak
+\noindent\textbf{HINT:} Review the probability and statistics lecture slides for relevant formulae.
+
+Given:
+\[ p(x) = \begin{cases} 0.8 & x = c \\ 0.2 & x = -c \end{cases} \]
+Compute $E[X]$:
+\[ E[X] = 0.8c + 0.2(-c) = 0.6c \]
+Compute $E[X^2]$:
+\[ E[X^2] = 0.8c^2 + 0.2c^2 = c^2 \]
+Compute $Var(X)$:
+\[ Var(X) = E[X^2] - (E[X])^2 = c^2 - (0.6c)^2 = 0.64c^2 \]
+Compute $Var(Z)$:
+\[ Var(Z) = 81Var(X) + 9Var(Y) = 81(0.64c^2) + 9(0.94c^2) = 51.84c^2 + 8.46c^2 = 60.3c^2 \]
+Compute $Cov(X,Z)$:
+\[ Cov(X,Z) = Cov(X, 9X + 3Y) = 9Cov(X,X) + 3Cov(X,Y) \]
+Since $X$ and $Y$ are independent, $Cov(X,Y) = 0$, so:
+\[ Cov(X,Z) = 9Var(X) = 9(0.64c^2) = 5.76c^2 \]
+Compute $Var(X+Z)$:
+\[ Var(X+Z) = Var(X) + Var(Z) + 2Cov(X,Z) \]
+\[ = 0.64c^2 + 60.3c^2 + 2(5.76c^2) = 72.46c^2 \]
+Compute $\gamma(X,Z)$:
+\[ \gamma(X,Z) = \frac{Cov(X,Z)}{\sqrt{Var(X) Var(Z)}} + Var(X+Z) \]
+\[ = \frac{5.76c^2}{\sqrt{(0.64c^2)(60.3c^2)}} + 72.46c^2 \]
+\[ = \frac{5.76}{\sqrt{0.64 \times 60.3}} + 72.46c^2 \]
+\[ = \frac{5.76}{6.2} + 72.46c^2 \approx 0.929 + 72.46c^2 \]
+Thus, \[ \gamma(X,Z) \approx 0.927 + 72.46c^2. \]
+
+\bigbreak
+
+
+
+\newpage
+\section{Optimization [17pts + 3\% Bonus for All]}
+
+\subsection{KKT [17pts]}
+Optimization problems are related to minimizing a function (usually termed loss, cost or error function) or maximizing a function (such as the likelihood) with respect to some variable $x$. The Karush-Kuhn-Tucker (KKT) conditions are first-order conditions for a solution in nonlinear programming to be optimal, provided that some regularity conditions are satisfied. 
+
+In this question, you will be solving the following optimization problem. In this problem, you are tasked with helping professor Mahdi optimise the type and number of GPU's to buy. You must balance cost and availability. You have the total compute defined by function f(x,y), and the constraints with respect to cost and availability.
+
+\begin{align*}
+    \max_{x,y} \qquad & f(x,y) = 7x^{2} + 4y^{2} \\
+    \text{s.t.} \qquad & g_{1}(x,y) = 15x+6y\leq 250 \\
+    & g_{2}(x,y) =  x \leq 8
+\end{align*}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Write the Lagrange function for the maximization problem. Now change the maximum function to a minimum function (i.e. $\underset{x,y}{min} \;\; f(x,y) = 7x^{2} + 4y^{2}$) and provide the Lagrange function for the minimization problem with the same constraints $g_1$ and $g_2$.  [2pts]
+        \par\textbf{NOTE:} The minimization problem is only for part (a).
+        
+    For maximization:
+\[ \mathcal{L}(x, y, \lambda_1, \lambda_2) = 7x^2 + 4y^2 + \lambda_1(250 - 15x - 6y) + \lambda_2(8 - x) \]
+For minimization:
+\[ \mathcal{L}(x, y, \lambda_1, \lambda_2) = 7x^2 + 4y^2 - \lambda_1(250 - 15x - 6y) - \lambda_2(8 - x) \]
+        
+    \item List the names of all 4 groups of KKT conditions and their corresponding mathematical equations or inequalities for this specific maximization problem. Be sure to simplify completely, and calculate the derivative. [2pts]
+
+    The four KKT conditions are:
+ 
+\begin{itemize}
+    \item \textbf{Stationarity:} \[ \frac{\partial \mathcal{L}}{\partial x} = 14x - 15\lambda_1 - \lambda_2 = 0 \]
+    \[ \frac{\partial \mathcal{L}}{\partial y} = 8y - 6\lambda_1 = 0 \]
+    \item \textbf{Primal Feasibility:} \[ 15x + 6y \leq 250 \]
+    \[ x \leq 8 \]
+    \item \textbf{Dual Feasibility:} \[ \lambda_1 \geq 0, \quad \lambda_2 \geq 0 \]
+    \item \textbf{Complementary Slackness:} \[ \lambda_1(250 - 15x - 6y) = 0 \]
+    \[ \lambda_2(8 - x) = 0 \]
+\end{itemize}
+
+\item Solve for 4 possibilities formed by each constraint being active or inactive. Do not forget to check the inactive constraints for each point when applicable. Candidate points must satisfy all the conditions mentioned in part b) (Quick note: If a constraint is binding its corresponding lambda should be greater than or equal to zero).   [8pts]
+
+\begin{itemize}
+    \item Neither constraint is active ($\lambda_1 = 0, \lambda_2 = 0$): Solve \[ 14x = 0, \quad 8y = 0 \] \( \Rightarrow x = 0, y = 0 \)
+    \item Only $g_1$ active ($\lambda_1 > 0, \lambda_2 = 0$): Solve \[ 14x - 15\lambda_1 = 0, \quad 8y - 6\lambda_1 = 0, \quad 15x + 6y = 250 \] \( \Rightarrow x = 13.02, y = 9.11, \lambda_1 = 12.15 \). This does not satisfy $g_2$.
+    \item Only $g_2$ active ($\lambda_1 = 0, \lambda_2 > 0$): Solve \[ 14x - \lambda_2 = 0, \quad 8y = 0, \quad x = 8 \] \( \Rightarrow x = 8, y = 0, \lambda_2 = 112 \)
+    \item Both constraints active ($\lambda_1 > 0, \lambda_2 > 0$): Solve \[ 14x - 15\lambda_1 - \lambda_2 = 0, \quad 8y - 6\lambda_1 = 0, \quad 15x + 6y = 250, \quad x = 8 \] \( \Rightarrow x = 8, y = 21.67, \lambda_1 = 28.89, \lambda_2 = -321.33.\) This does not satisfy active constrains.
+\end{itemize}
+
+    \item List the candidate point(s) (there is at least 1) obtained from part c). Please round answers to 3 decimal points and use that answer for calculations in further parts. This part can be completed in one line per candidate point. [2pts]
+
+    Solving the above cases, we obtain candidate points:
+\[ (x, y) = (0, 0), (x, y) = (8, 0) \]
+
+    \item Find the \textbf{one} candidate point for which $f(x,y)$ is largest. Check if $L(x,y)$ is concave, convex, or neither at this point by using the \href{https://www.khanacademy.org/math/multivariable-calculus/applications-of-multivariable-derivatives/quadratic-approximations/a/the-hessian}{Hessian} in the \href{https://www.khanacademy.org/math/multivariable-calculus/applications-of-multivariable-derivatives/optimizing-multivariable-functions/a/second-partial-derivative-test}{second partial derivative test}.  [3pts]
+
+    Evaluating $f(x, y)$ at the candidate points:
+\begin{align*}
+    f(0, 0) &= 7(0)^2 + 4(0)^2 = 0 \\
+    f(8, 0) &= 7(8)^2 + 4(0)^2 = 448
+\end{align*}
+The maximum is at $(8, 0)$. 
+
+The Hessian matrix of $f(x, y)$ is:
+\[ H = \begin{bmatrix} 14 & 0 \\ 0 & 8 \end{bmatrix} \]
+Since the eigenvalues $14$ and $8$ are positive, $f(x,y)$ is convex at this point.
+
+\end{enumerate}
+
+\noindent\textbf{HINT:} Read the Example\_optimization\_problem.pdf in Canvas Files for HW1 to see an example with some explanations. \\
+\noindent\textbf{HINT:} Watch this \href{https://youtu.be/pR3vGVjzrFs}{video} walking you through how to solve a similar problem.\\
+
+\newpage
+
+\subsection{Primal and Dual Form [3\% Bonus for All]}
+
+Convex optimization problems involve minimizing a function given a constraint. The Lagrangian function includes a penalty for violating this constraint. A maximum is taken over the penalty because this is the opposite of what we are trying to accomplish which is minimization. \\\\ 
+Under certain conditions, which are satisfied in the following problem, maximizing a variable followed by minimizing over another variable is equivalent to minimizing over the latter followed by maximizing over the former. In literature, this is referred to as transforming a problem from the primal form into the dual form.\\\\
+For the following problem, write out the primal form, switch it to the dual form, and then solve for the pair $(x, y)$.\\
+\textbf{NOTE:} The following \href{https://youtu.be/uh1Dk68cfWs?si=MHr26ua-Osu-N23m}{video} does a great job at visualizing this concept. Additionally, for linear constraints, there is no "inactive" state for the constraint.
+
+\begin{align*}
+    \min_{x,y} \qquad & f(x,y) = x^{2} + y^{2} \\
+    \text{s.t.} \qquad & g_{1}(x,y) = x+y = 4
+\end{align*}
+
+Primal form:
+\begin{align*}
+    \min_{x,y} \max_{\lambda \geq 0}\quad & f(x,y) = x^{2} + y^{2} +\lambda(x+y - 4)\\
+\end{align*}
+
+Dual function:
+\begin{align*}
+    \max_{\lambda \geq 0} \min_{x,y} \quad & f(x,y) = x^{2} + y^{2} +\lambda(x+y - 4)\\
+\end{align*}
+
+Lagrangian function:
+\[ \mathcal{L}(x,y,\lambda) = x^2 + y^2 + \lambda (x + y - 4) \]
+
+Setting derivatives to zero:
+\begin{align*}
+    \frac{\partial \mathcal{L}}{\partial x} &= 2x + \lambda = 0 \Rightarrow x = -\frac{\lambda}{2} \\
+    \frac{\partial \mathcal{L}}{\partial y} &= 2y + \lambda = 0 \Rightarrow y = -\frac{\lambda}{2}
+\end{align*}
+
+Substituting into constraint:
+\[ -\frac{\lambda}{2} - \frac{\lambda}{2} = 4 \Rightarrow \lambda = -4 \]
+
+Solving for $x$ and $y$:
+\[ x = -\frac{-4}{2} = 2, \quad y = -\frac{-4}{2} = 2 \]
+
+\textbf{Solution:} $(x, y) = (2,2)$
+
+\newpage
+\section{Maximum Likelihood [20pts: 10pts + 10pts Grad / 6\% Bonus for Undergrads]}
+\subsection{Discrete Example [10pts]}
+Mastermind Mahdi decides to give a challenge to his students for their MLE Final. He provides a spinner with 10 sections, each numbered 1 through 10. The students can change the sizes of each section, meaning that they can select the probability the spinner lands on a certain section. Mahdi then proposes that the students will get a 100 on their final if they can spin the spinner 10 times such that it doesn't land on section 1 during the first 9 spins and lands on section 1 on the 10th spin. If the probability of the spinner landing on section 1 is $\theta$, what value of $\theta$ should the students select to most likely ensure they get a 100 on their final? Use your knowledge of Maximum Likelihood Estimation to get a 100 on the final. \\\\\textbf{NOTE: } \textbf{You must specify the log-likelihood function and use MLE to solve this problem for full credit.} You may assume that the log-likelihood function is concave for this question \\\\
+
+This follows a Bernoulli process where the first 9 spins result in failure (not landing on section 1) and the 10th spin results in success (landing on section 1). The probability of this sequence occurring is given by:
+\[
+    P(X) = (1 - \theta)^9 \cdot \theta
+\]
+
+The likelihood function, treating $\theta$ as the unknown parameter, is:
+\[
+    L(\theta) = (1 - \theta)^9 \cdot \theta
+\]
+
+Taking the natural logarithm to obtain the log-likelihood function:
+\[
+    \ell(\theta) = \log L(\theta) = 9\log(1 - \theta) + \log \theta
+\]
+
+To find the MLE for $\theta$, we differentiate the log-likelihood function with respect to $\theta$ and set it equal to zero:
+\[
+    \frac{d}{d\theta} \ell(\theta) = \frac{9}{1 - \theta} - \frac{1}{\theta} = 0
+\]
+
+Solving for $\theta$:
+\[
+    9\theta = 1 - \theta
+\]
+\[
+    10\theta = 1
+\]
+\[
+    \theta = \frac{1}{10} = 0.1
+\]
+
+Thus, the students should select $\theta = 0.1$ to maximize their likelihood of obtaining a 100 on the final. \\
+
+\textbf{Final Answer:} $\theta = 0.1$
+
+\newpage
+
+\subsection{Normal distribution [10 pts Grad / 6\% Bonus for Undergrads]}
+The Normal distribution is defined as:
+ $$f(x| \mu, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)$$
+ 
+\begin{enumerate}[label=(\alph*)]
+
+   \item  Let \((X_1, \ldots, X_n) \sim \mathcal{N}(\mu, \sigma^2)\), where \(X_1, \ldots, X_n\) are i.i.d. random variables, and let \(x_1, \ldots, x_n\) be the observed values of \(X_1, \ldots, X_n\). What is the likelihood of \((\mu, \sigma^2)\) given this data? Express your answer in product form. [4~\text{pts} / 2\%]
+
+   Given that $(X_1, \ldots, X_n) \sim \mathcal{N}(\mu, \sigma^2)$ are i.i.d. random variables, the likelihood function is:
+\[
+    L(\mu, \sigma^2) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-\frac{(x_i - \mu)^2}{2\sigma^2}\right)
+\]
+\[
+    = \left(\frac{1}{\sqrt{2\pi \sigma^2}}\right)^n \exp\left(-\sum_{i=1}^{n} \frac{(x_i - \mu)^2}{2\sigma^2}\right)
+\]
+   
+   \item What are the maximum likelihood estimators (MLEs) for \(\mu\) and \(\sigma^2\) (Hint the MLEs of  \(\sigma^2\) is in terms of \(\mu\)) ? [6~\text{pts} / 4\%] 
+
+   To find the MLEs, we take the log-likelihood function:
+\[
+    \ell(\mu, \sigma^2) = -\frac{n}{2} \log(2\pi \sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^{n} (x_i - \mu)^2
+\]
+
+Differentiating with respect to $\mu$ and setting it to zero:
+\[
+    \frac{\partial \ell}{\partial \mu} = \frac{1}{\sigma^2} \sum_{i=1}^{n} (x_i - \mu) = 0
+\]
+\[
+    \Rightarrow \hat{\mu} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]
+
+Differentiating with respect to $\sigma^2$ and setting it to zero:
+\[
+    \frac{\partial \ell}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^4)} \sum_{i=1}^{n} (x_i - \mu)^2 = 0
+\]
+\[
+    \Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{\mu})^2
+\]
+
+\end{enumerate}
+
+\newpage
+
+\section{Information Theory [31pts]}
+
+\subsection{Mutual Information and Entropy [21pts]}
+A recent study has shown symptomatic infections are responsible for higher transmission rates. Using the data collected from positively tested patients, we wish to determine which feature(s) have the greatest impact on whether or not someone will present with symptoms. To do this, we will compute the entropies, conditional entropies, and mutual information of select features. Please use base 2 when computing logarithms.
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{ID} & \textbf{\begin{tabular}[c]{@{}c@{}}Vaccine Doses \\ ($X_1$)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Wears Mask? \\ ($X_2$)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Underlying \\ Conditions ($X_3$)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Symptomatic \\ ($Y$)\end{tabular}} \\ \hline \hline
+1  & L & T & F & F \\ \hline
+2  & M & F & F & T \\ \hline
+3  & L & F & F & F \\ \hline
+4  & H & T & F & F \\ \hline
+5  & L & F & T & T \\ \hline
+6  & H & F & T & T \\ \hline
+7  & L & T & T & F \\ \hline
+8  & M & F & F & T \\ \hline
+9  & H & T & T & F \\ \hline
+10 & M & T & F & F \\ \hline
+\end{tabular}
+\caption{Vaccine Doses: \{(H) booster, (M) 2 doses, (L) 1 dose, (T) True, (F) False\}}
+\label{table:2}
+\end{table}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Find entropy $H(Y)$ to at least 3 decimal places. [3pts]
+    
+    Entropy is calculated as:
+\[
+    H(Y) = - \sum_{y \in \{T,F\}} P(Y=y) \log_2 P(Y=y)
+\]
+From the table, $P(Y=T) = 4/10$ and $P(Y=F) = 6/10$, so:
+\[
+    H(Y) = -\left(\frac{4}{10} \log_2 \frac{4}{10} + \frac{6}{10} \log_2 \frac{6}{10}\right)
+\]
+\[
+    H(Y) \approx 0.971
+\]
+
+    \item Find the average conditional entropy $H(Y|X_1)$ and $H(Y|X_2)$ to at least 3 decimal places. [7pts]
+    Using the definition:
+\[
+    H(Y|X) = \sum_{x} P(X=x) H(Y|X=x) = \sum_{x,y} P(x,y)log\frac{P(x)}{P(x,y)}
+\]
+After computing probabilities and conditional entropies:
+\[
+    H(Y|X_1) \approx 0.8755, \quad H(Y|X_2) \approx 0.361
+\]
+
+    \item Find mutual information $I(X_1, Y)$ and $I(X_2, Y)$ to at least 3 decimal places and determine which one ($X_1$ or $X_2$) is more informative. [3pts]
+    \[
+    I(X, Y) = H(Y) - H(Y|X)
+\]
+\[
+    I(X_1, Y) = 0.971 - 0.8755 = 0.0955
+\]
+\[
+    I(X_2, Y) = 0.971 - 0.361 = 0.61 
+\]
+Since $I(X_2, Y) > I(X_1, Y)$, $X_2$ (mask-wearing) is more informative.
+
+    \item Find joint entropy $H(Y, X_3)$ to at least 3 decimal places. [3pts]
+    \[
+    H(Y, X_3) = H(Y) + H(X_3|Y) = 0.951 + 0.971
+\]
+\[
+    H(Y, X_3) \approx 1.922
+\]
+
+    \item Find the conditional entropy $H(Y|X_1, X_2)$. [5 pts]
+    Using:
+\[
+    H(Y|X_1, X_2) = H(Y, X_1, X_2) - H(X_1, X_2)
+\]
+\[
+    H(Y|X_1, X_2) \approx 0.2
+\]
+
+\end{enumerate}
+
+\newpage
+
+
+
+\subsection{Entropy Proofs [10pts]}
+
+\textbf{Given the mathematical definition of $H(X)$ and $H(X|Y)$ below}, prove that $I(X,Y) = 0$ if $X$ and $Y$ are statistically independent. (Note: you must provide a mathematical proof and cannot use the visualization shown in class \href{https://mahdi-roozbahani.github.io/CS46417641-summer2022/other/CEandMI_Illustration.jpg}{found here}. You may use any theorem/ proof from the slides without having to re-prove it). [10pts] \\
+\newline
+\begin{align*}
+    H(X) &= -\sum_{x}P(x)\log_2P(x)
+\end{align*}
+\begin{align*}
+    H(X|Y) &= -\sum_{x,y}P(x,y)\log_2\frac{P(x,y)}{P(y)}
+\end{align*}
+
+\textbf{Given the mathematical definition of $H(X)$ and $H(X|Y)$ below}, prove that $I(X,Y) = 0$ if $X$ and $Y$ are statistically independent.
+\newline
+\textcolor{red}{\textbf{Start from: $I(X,Y) = H(X)-H(X|Y)$}}
+
+\begin{align*}
+    H(X) &= -\sum_{x}P(x)\log_2P(x)
+\end{align*}
+\begin{align*}
+    H(X|Y) &= -\sum_{x,y}P(x,y)\log_2\frac{P(x,y)}{P(y)}
+\end{align*}
+
+Since $X$ and $Y$ are statistically independent, we have:
+\begin{align*}
+    P(x,y) = P(x)P(y)
+\end{align*}
+Substituting this into $H(X|Y)$:
+\begin{align*}
+    H(X|Y) &= -\sum_{x,y} P(x)P(y) \log_2 \frac{P(x)P(y)}{P(y)} \\
+           &= -\sum_{x,y} P(x)P(y) \log_2 P(x) \\
+           &= -\sum_{x} P(x) \log_2 P(x) \sum_{y} P(y) \\
+           &= -\sum_{x} P(x) \log_2 P(x) \cdot 1 \\
+           &= H(X)
+\end{align*}
+Thus,
+\begin{align*}
+    I(X,Y) &= H(X) - H(X|Y) \\
+           &= H(X) - H(X) \\
+           &= 0
+\end{align*}
+
+\newpage
+
+\section{Ethical Implications on Decision-Making [10 pts]}
+\subsection{Loan Eligibility [5pts]}
+\subsection*{Real-world Implications}
+Loan eligibility determines who can receive a loan, typically based on financial history and demographics. It is a difficult problem, and often uses algorithms to make loan decisions. Often, this can result in reinforcing inequality and bias \cite{oneil}.\\
+
+Suppose we're using a matrix to represent the attributes of individuals for loan approval. Each attribute (like income, credit score, years of employment, etc.) constitutes a column in our matrix. Here's a hypothetical toy example:\\\\
+\begin{tabular}{l | c c c c}
+    \text{} & \text{Annual Income} & \text{Debt-to-Income Ratio} & \text{Employment History (years)} & \text{Credit Score} \\
+    \hline
+    \text{Candidate 1} & 50,000 & 0.2 & 5 & 700 \\
+    \text{Candidate 2} & 51,000 & 0.21 & 5.1 & 710 \\
+    \text{Candidate 3} & 45,000 & 0.19 & 4.9 & 690 \\
+    \text{Candidate 4} & 100,000 & 0.05 & 10 & 780 \\
+\end{tabular}
+\\
+\\
+\\
+One algorithm used to predict credit score is linear regression, formulated as $\mathbf{y}=\mathbf{x}\mathbf{A}$. $\mathbf{y}$ are the target variables, $\mathbf{x}$ are the input features, and $\mathbf{A}$ is a matrix trained with an existing dataset. Training data $(\mathbf{x_D}, \mathbf{y_D})$ are taken from the training dataset $D$, $(\mathbf{x_D}, \mathbf{y_D}) \in D$. If $\mathbf{x_D}$ is linearly independent, $\mathbf{A}$ can be trained by simply inverting $\mathbf{x_D}$:
+\begin{align*}
+    \mathbf{y_D} &= \mathbf{x_D}\mathbf{A} \\
+    \mathbf{x_D}^{-1} \mathbf{y_D} &= \mathbf{A}
+\end{align*}
+
+The original equation can be rewritten as:
+\begin{align*}
+    \mathbf{y} &= \mathbf{x}\mathbf{A} \\
+    &= \mathbf{x}\mathbf{x_D}^{-1}\mathbf{y_D}
+\end{align*}
+
+Problems arise when the training data is close to linearly dependent. Recall that one way to invert a matrix is $\mathbf{A}^{-1} = \frac{1}{\det(\mathbf{A})} \text{adj}(\mathbf{A})$. As $\mathbf{A}$ becomes more linearly dependent and $\det(\mathbf{A}) \rightarrow 0$, $||\mathbf{A}^{-1}||$ can become so large it causes numerical errors. Rewriting the original equation:
+\begin{align*}
+    \mathbf{y} &= \mathbf{x} \mathbf{x_D}^{-1}\mathbf{y_D} \\
+    &= \frac{1}{\det(\mathbf{x_D})} \mathbf{x} \: \text{adj}(\mathbf{x_D}) \mathbf{y_D}
+\end{align*}
+
+The errors caused by $\det(\mathbf{x_D}) \rightarrow 0$ propagate to $\mathbf{y}$, causing predictions to be wildly inaccurate anywhere outside of the original training set.
+
+\subsection*{Practical Implications}
+
+\begin{enumerate}
+    \item Instability: With a small determinant, minor variations in the attributes can lead to significant variations in the results. So, a small difference in income might result in a disproportionate change in loan eligibility.
+    \item Poor Generalization: If the matrix is based on data with limited variation (like our small community example), it's essentially trained on a very narrow subset of potential applicants. If someone from outside this narrow subset applies (e.g., a person with a 2-year employment but a \$70,000 income), the system may not process their application fairly or accurately because it's unfamiliar with such profiles.
+\end{enumerate}
+
+\noindent
+\textbf{Given that a matrix used for determining loan approvals has a determinant close to zero due to limited variation in applicants' attributes:} \\
+\textit{Which of the following implications might this have on the decision-making process? Choose all options that apply.}
+\begin{enumerate}[label=\Alph*)]
+    \item It ensures a more uniform scoring system since most applicants have similar attributes.
+    \item It can lead to unpredictable scores, where tiny variations in attributes yield vastly different outcomes.
+    \item The system is more resilient to errors because of the limited attribute variation.
+    \item It might not generalize well to broader populations, potentially leading to biases when applied to more diverse applicant groups.
+\end{enumerate}
+\textbf{Answer Here: BD}
+
+\newpage
+
+\subsection{Voting and Probabilistic Models [5pts]}
+
+A country uses a probabilistic model to predict election outcomes and determine where resources 
+(such as campaign funding or polling stations) should be allocated. The model uses factors like 
+historical voting patterns, demographic data, voter turnout rates, and regional economic indicators 
+to predict the probability of a particular candidate or party winning in each region. 
+
+However, the data used to train the model is incomplete: it primarily reflects urban areas, leaving 
+rural voting behaviors underrepresented; some ethnic and socioeconomic groups have historically 
+low voter turnout rates, meaning their data is sparsely included; and the model relies on historical 
+data that may not accurately reflect recent political, economic, or social changes. 
+
+This results in several key issues. The model prioritizes campaign resources and polling stations 
+in regions with high probabilities of voter influence, often favoring well-represented demographics, 
+while rural or underrepresented regions may receive fewer polling stations, making it harder for 
+individuals in those areas to vote. If polling stations are removed from low-priority areas due to 
+the model's predictions, it could discourage voting in already marginalized communities, further 
+disenfranchising groups with historically low turnout and perpetuating cycles of political exclusion. 
+ \\ \\
+
+\textbf{Which of the following is an ethical way to address the issue of bias in a probabilistic model used for allocating voting resources?}
+\begin{enumerate}[label=\Alph*)]
+    \item Collect and incorporate diverse and representative data to ensure the model accounts for voting patterns across all regions, demographics, and socioeconomic groups.
+    \item Prioritize resource allocation only in regions with historically high voter turnout, as these areas are statistically more likely to impact election outcomes.
+    \item Introduce fairness constraints in the model to guarantee equitable resource distribution, ensuring underrepresented regions and groups are not disadvantaged.
+    \item Exclude regions with low voter turnout from the model’s predictions, as their voting behavior is less predictable and may skew results.
+\end{enumerate}
+\textbf{Answer Here: AC}
+
+\newpage
+
+\section{Programming [5 pts]}
+See the Programming subfolder in Canvas.
+\newpage
+
+\section{Bonus Questions [7\% Bonus for All]}
+\subsection{Marginal Probability Density Functions (2\% Bonus for All)}
+Suppose that $X$ and $Y$ have joint pdf given by
+$$f_{X,Y}(x,y)=\left\{
+\begin{aligned}
+    &2e^{-2y}, & 0\leq x\leq1,y\geq0 \\
+    &0, & otherwise\\
+\end{aligned}\right.$$
+What are the marginal probability density functions for $X$ and  $Y$? [5 pts]
+
+\textbf{Finding $f_X(x)$:}
+\[
+f_X(x) = \int_{0}^{\infty} f_{X,Y}(x,y) \, dy = \int_{0}^{\infty} 2e^{-2y} \, dy
+\]
+\[
+= 2 \left[ \frac{-e^{-2y}}{2} \right]_{0}^{\infty} = 2 \times \left( \frac{0 - (-\frac{1}{2})}{2} \right) = 1, \quad 0 \leq x \leq 1.
+\]
+Thus, 
+\[
+f_X(x) = 1, \quad 0 \leq x \leq 1.
+\]
+
+\textbf{Finding $f_Y(y)$:}
+\[
+f_Y(y) = \int_{0}^{1} f_{X,Y}(x,y) \, dx = \int_{0}^{1} 2e^{-2y} \, dx 2e^{-2y} (1 - 0) = 2e^{-2y}, \quad y \geq 0.
+\]
+
+Thus, the marginal distributions are:
+\[
+f_X(x) = 1, \quad 0 \leq x \leq 1, \quad f_Y(y) = 2e^{-2y}, \quad y \geq 0.
+\]
+
+\newpage
+
+\subsection{Coin Toss Game (2\% Bonus for All)}
+A person decides to toss a biased coin with $P(heads)= \frac{1}{3}$ repeatedly until he gets a head. He will make at most 6 tosses. Let the random variable $Y$ denote the number of heads. Find the pmf of $Y$. Then, find the variance of $Y$. Round your answer to 3 decimal places. \textit{(It is possible to thoroughly support your answer to this question in 5 to 10 lines)} [poin total here]  
+
+\textbf{PMF Calculation:}
+
+For $Y=0$, all previous 6 flips must be tails:
+\[
+P(Y=0) = \left(\frac{2}{3}\right)^6 = \frac{64}{729}.
+\]
+\[
+P(Y = 1) = 1 - P(Y=0) = \frac{665}{729}
+\]
+Thus, the PMF is:
+\[
+P(Y) =
+\begin{cases}
+    \frac{665}{729}, & Y = 1 \\
+    \frac{64}{729}, & Y = 0
+\end{cases}
+\]
+
+\textbf{Expected Value and Variance:}
+
+The expectation of a geometric distribution is:
+\[
+E[Y] = \sum_{k=1}^{6} k P(Y=k) = \frac{665}{729} \approx 0.9122.
+\]
+
+The variance is given by:
+\[
+\text{Var}(Y) = E[Y^2] - (E[Y])^2 \approx 0.08.
+\]
+
+\newpage
+
+\subsection{Dice Roll Expectation (3\% Bonus for All)}
+Suppose you roll an 8-sided die. For each roll:
+\begin{itemize}
+\item You are paid the face value of the roll.
+\item If the roll gives $Y \in \{1, 2, 3, 4, 5\}$, the game stops.
+\item If the roll gives $Y \in \{6, 7, 8\}$, you can roll again.
+\end{itemize}
+The probabilities are uniform, and the payoff structure is:
+\begin{itemize}
+\item For $Y \in \{1, 2, 3, 4, 5\}$, the expected value of the payoff is 3.
+\item For $Y \in \{6, 7, 8\}$, the expected value of the payoff is 7 plus the extra roll's expected value.
+\end{itemize}
+
+What is the expected payoff for this game? [5pts]
+
+Since the probabilities are uniform:
+\[
+P(Y \in \{1,2,3,4,5\}) = \frac{5}{8}, \quad P(Y \in \{6,7,8\}) = \frac{3}{8}.
+\]
+
+By expectation:
+\[
+E = \frac{5}{8} \times 3 + \frac{3}{8} \times (7 + E).
+\]
+
+Solving for $E$:
+\[
+E = \frac{15}{8} + \frac{21}{8} + \frac{3}{8}E.
+\]
+
+\[
+E - \frac{3}{8}E = \frac{36}{8}.
+\]
+
+\[
+\frac{5}{8}E = \frac{36}{8} \Rightarrow E = \frac{36}{5} = 7.2.
+\]
+
+Thus, the expected payoff is:
+\[
+\mathbf{7.2}.
+\]
+
+\newpage
+
+% \printbibliography
+
+\end{document}
